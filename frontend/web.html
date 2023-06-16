@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Image</title>
+</head>
+<body>
+    <h1>Upload Image</h1>
+    <form action="http://localhost:5000/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" value="Upload">
+    </form>
+
+    <h2>Original Image</h2>
+    <img style="width: 400px;" src="data:;base64,{{ original_img }}">
+
+    <h2>Processed Image</h2>
+    <img style="width: 600px;" src="data:;base64,{{ rotated_img }}">
+
+    <h3>Download Processed Image</h3>
+    <a href="/download?filename={{ filename }}" download>Download Processed Image</a>
+</body>
+</html>
