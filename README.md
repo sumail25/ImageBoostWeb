@@ -11,6 +11,7 @@ This is a web application for image super-resolution based on Real-ESRGAN. Users
     <img src="assets/web_demo.jpg" width="700"/>
 </p>
 
+---
 
 ## How to Use
 
@@ -43,3 +44,11 @@ This is a web application for image super-resolution based on Real-ESRGAN. Users
    - Click "Process" to upscale your image. It will take a few seconds, depending on the performance of your GPU (You can change tile size `-t, --tile` in app.py for runtime or CUDA memory issues). You can check the status on your backend terminal
   
 5. After processing, you can preview your processed image on this page and click the "Download" button to download it.
+
+---
+
+#### TODO
+
+- Multiple image processing queue
+- Interface typesetting
+- History management
