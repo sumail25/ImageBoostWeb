@@ -1,22 +1,112 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Upload Image</title>
+    <title>Image Processing Demo</title>
 </head>
 <body>
-    <h1>Upload Image</h1>
-    <form action="http://localhost:5000/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="file">
-        <input type="submit" value="Upload">
+    <h1>Image Processing Demo</h1>
+    <form>
+        <input type="file" name="file" id="fileInput">
+        <input type="button" value="Upload" onclick="uploadImage()">
     </form>
 
-    <h2>Original Image</h2>
-    <img style="width: 400px;" src="data:;base64,{{ original_img }}">
+    <h2>Uploaded Image</h2>
+    <div id="preview"></div>
+
+    <h2>Processing Options</h2>
+    <select id="modelType">
+        <option value="general">General</option>
+        <option value="anime">Anime</option>
+    </select>
+    <select id="upscaleFactor">
+        <option value="2">2x</option>
+        <option value="3">3x</option>
+        <option value="4">4x</option>
+    </select>
+    <input type="checkbox" id="faceEnhance" name="faceEnhance">
+    <label for="faceEnhance">Face Enhance</label>
+    <button onclick="processImage()">Process</button>
 
     <h2>Processed Image</h2>
-    <img style="width: 600px;" src="data:;base64,{{ rotated_img }}">
+    <div id="processedImage"></div>
 
     <h3>Download Processed Image</h3>
-    <a href="/download?filename={{ filename }}" download>Download Processed Image</a>
+    <a id="downloadLink" download="processed_image.jpg"><button>Download</button></a>
+
+    <script>
+        // 显示上传的图片预览
+        
+        function displayPreview(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    var previewElement = document.getElementById('preview');
+                    previewElement.innerHTML = '<img style="width: 400px;" src="' + e.target.result + '" alt="Preview">';
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        document.getElementById('fileInput').addEventListener('change', function() {
+            displayPreview(this);
+        });
+
+        // 上传图片
+        function uploadImage() {
+            var fileInput = document.getElementById('fileInput');
+            var formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+            formData.append('image_name', fileInput.files[0].name);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log('Image uploaded:', data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        // 处理图片
+        function processImage() {
+            var fileInput = document.getElementById('fileInput');
+            var modelType = document.getElementById('modelType').value;
+            var upscaleFactor = document.getElementById('upscaleFactor').value;
+            var faceEnhance = document.getElementById('faceEnhance').checked;
+
+            var formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+            formData.append('image_name', fileInput.files[0].name);
+            formData.append('model_type', modelType);
+            formData.append('upscale_factor', upscaleFactor);
+            formData.append('face_enhance', faceEnhance);
+
+            fetch('/process', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+              // 解码文件名
+              var decodedFilename = atob(data);
+          
+              var processedImageElement = document.getElementById('processedImage');
+              processedImageElement.innerHTML = '<img style="width: 600px;" src="/download?filename=' + decodedFilename + '" alt="Processed Image">';
+          
+              // 更新下载链接
+              var downloadLinkElement = document.getElementById('downloadLink');
+              downloadLinkElement.href = '/download?filename=' + decodedFilename;
+            })          
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
 </body>
 </html>

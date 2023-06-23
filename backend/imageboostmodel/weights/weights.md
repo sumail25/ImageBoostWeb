@@ -1,0 +1,1 @@
+you can learn and download model weights from [Real-ESRGAN/docs/model_zoo.md](https://github.com/xinntao/Real-ESRGAN/blob/master/docs/model_zoo.md)

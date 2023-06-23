@@ -1,1 +1,8 @@
+# ignore weights folders
+backend/imageboostmodel/weights/RealESRGAN_x4plus_anime_6B.pth
+backend/imageboostmodel/weights/RealESRGAN_x4plus.pth
+gfpgan/*
+
 # ignore img folders
+backend/processed_images/*
+backend/uploaded_images/*
