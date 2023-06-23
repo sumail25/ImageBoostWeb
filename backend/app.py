@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, send_file
 import os
 import base64
 from flask_cors import CORS
-from PIL import Image
 import subprocess
 
 app = Flask(__name__, template_folder='../frontend')

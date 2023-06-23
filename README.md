@@ -5,7 +5,9 @@ A Web application of [Image Boost Model](https://github.com/sumail25/ImageBoostM
 
 ## Web Demo
 
-This is a web application for image super-resolution based on Real-ESRGAN. Users can upload their own images, choose appropriate parameters, and obtain high-resolution images after super-resolution, which can be downloaded.
+This is a web application for image super-resolution based on Real-ESRGAN using flask. 
+
+Users can upload their own images, choose appropriate parameters, and obtain high-resolution images after super-resolution, which can be downloaded.
 
 <p align="center">
     <img src="assets/web_demo.jpg" width="700"/>
