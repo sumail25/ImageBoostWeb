@@ -36,9 +36,9 @@ Users can upload their own images, choose appropriate parameters, and obtain hig
 
 3. Run app.py
    ```console
-   python backend\app.py
+   python backend/app.py
    ```
-   Open [Image Processing Demo:](http://localhost:5000/) http://localhost:5000/ webpage with your browser.
+   Open Image Processing Demo webpage at <ins>http://localhost:5000</ins> with your browser.
 
 4. - Choose your image and Upload. You can preview your original image on the webpage.
    - For geranl images (landspaces, portraits), choose "General". if there are human faces in your image you can check "Face Enhance".
